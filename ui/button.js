@@ -126,7 +126,7 @@ $.widget( "ui.button", {
 		if ( !this.icon ) {
 			this.icon = $( "<span>" ).addClass( this._classes( "ui-button-icon" ) + " ui-icon" );
 
-			if ( !this.options.showLabel ){
+			if ( !this.options.showLabel ) {
 				this.element.addClass( this._classes( "ui-button-icon-only" ) );
 			} else {
 				this.element.addClass( "ui-icon-" + this.options.iconPosition );
