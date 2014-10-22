@@ -80,6 +80,7 @@ $.widget( "ui.button", {
 			this.options.disabled = this.element.prop( "disabled" ) || false;
 		}
 
+		this.hasTitle = this.element.attr( "title" );
 		this._enhance();
 
 		if ( this.element.is( "a" ) ) {
@@ -97,7 +98,7 @@ $.widget( "ui.button", {
 		this._setOption( "disabled", this.options.disabled );
 
 		this.element
-			.addClass( this._classes( "ui-button" ) + "ui-widget" )
+			.addClass( this._classes( "ui-button" ) + " ui-widget" )
 			.attr( "role", "button" );
 
 		// Check to see if the label needs to be set or if its already correct

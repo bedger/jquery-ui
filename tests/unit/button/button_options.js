@@ -43,7 +43,7 @@ test( "showLabel false without icon", function() {
 	$( "#button" ).button({
 		showLabel: false
 	});
-	strictEqual( $( "#button" ).attr( "class" ), "ui-button ui-widget ui-corner-all" );
+	strictEqual( $( "#button" ).attr( "class" ), "ui-button ui-corner-all ui-widget" );
 
 	$( "#button" ).button( "destroy" );
 });
@@ -54,7 +54,7 @@ test("showLabel false with icon", function() {
 		showLabel: false,
 		icon: "iconclass"
 	});
-	strictEqual( $( "#button" ).attr( "class" ), "ui-button ui-widget ui-corner-all ui-button-icon-only" );
+	strictEqual( $( "#button" ).attr( "class" ), "ui-button ui-corner-all ui-widget ui-button-icon-only" );
 
 	$( "#button" ).button( "destroy" );
 });
