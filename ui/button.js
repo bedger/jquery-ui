@@ -209,6 +209,72 @@ $.widget( "ui.button", {
 
 });
 
+// DEPRECATED
+if ( $.uiBackCompat ) {
+
+	// Text and Icons options
+	$.widget( "ui.button", $.ui.button, {
+		options: {
+			text: true,
+			icons: {
+				primary: null,
+				secondary: null
+			}
+		},
+
+		_create: function() {
+			if ( this.options.showLabel && !this.options.text ) {
+				this.options.showLabel = this.options.text;
+			}
+			if( !this.options.icon && ( this.options.icons.primary ||
+					this.options.icons.secondary ) ) {
+				if ( this.options.icons.primary ) {
+					this.options.icon = this.options.icons.primary;
+				} else {
+					this.options.icon = this.options.icons.secondary;
+					this.options.iconPosition = "end";
+				}
+			}
+			this._super();
+		},
+
+		_setOption: function( key, value ) {
+			if ( key === "text" ) {
+				this._setOption( "showLabel", value );
+			}
+			if( key === "icons" ) {
+				this._setOption( "icon", value );
+				if ( value.primary ) {
+					this._setOption( "icon", value );
+					this._setOption( "iconPosition", "beginning" );
+				} else if ( value.secondary ) {
+					this._setOption( "icon", value );
+					this._setOption( "iconPosition", "end" );
+				}
+			}
+
+		}
+	});
+	$.fn.button = (function( orig ) {
+		if( this[ 0 ].tagName === "input" && ( this.attr( "type") === "checkbox" ||
+				this.attr( "type" ) === "radio" ) ) {
+			if ( $.ui.checkboxradio ) {
+				if ( arguments.length === 0 ) {
+					return this.checkboxradio({
+						"icon": false
+					});
+				} else {
+					return this.checkboxradio.apply( arguments );
+				}
+			} else {
+				$.error( "Checkboxradio widget missing" );
+			}
+		} else {
+			return orig.apply( arguments );
+		}
+	})( $.fn.button );
+}
+
 return $.ui.button;
 
 }));
