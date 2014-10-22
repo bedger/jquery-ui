@@ -89,16 +89,6 @@ $.widget( "ui.checkboxradio", {
 		return options;
 	},
 
-	_readDisabled: function( options ) {
-		var isDisabled = this.element.prop( "disabled" );
-
-		if ( isDisabled !== undefined ) {
-			options.disabled = isDisabled;
-		} else {
-			options.disabled = false;
-		}
-	},
-
 	_create: function() {
 		var formElement = $( this.element[ 0 ].form );
 
@@ -107,15 +97,8 @@ $.widget( "ui.checkboxradio", {
 		formElement.off( "reset" + this.eventNamespace, formResetHandler );
 		formElement.on( "reset" + this.eventNamespace, formResetHandler );
 
-		// If it is null the user set it explicitly to null so we need to check the DOM
 		if ( this.options.disabled == null ) {
 			this.options.disabled = this.element.prop( "disabled" ) || false;
-		}
-
-		// If the option is true we call set options to add the disabled
-		// classes and ensure the element is not focused
-		if ( this.options.disabled === true ){
-			this._setOption( "disabled", true );
 		}
 
 		this._readType();
@@ -141,7 +124,9 @@ $.widget( "ui.checkboxradio", {
 	},
 
 	_readLabel: function() {
-		var ancestor, labelSelector, parent = this.element.closest( "label" );
+		var ancestor, labelSelector,
+			parent = this.element.closest( "label" );
+
 		// Check control.labels first
 		if ( this.element[ 0 ].labels !== undefined && this.element[ 0 ].labels.length > 0 ){
 			this.label = $( this.element[ 0 ].labels[ 0 ] );
@@ -158,8 +143,8 @@ $.widget( "ui.checkboxradio", {
 			this.label = ancestor.find( labelSelector );
 			if ( !this.label.length ) {
 
-				// The label was not found make sure ancestors exist if they do check their siblings
-				// if they dont check the elements siblings
+				// The label was not found, make sure ancestors exist. If they do check their
+				// siblings, if they dont check the elements siblings
 				ancestor = ancestor.length ? ancestor.siblings() : this.element.siblings();
 
 				// Check if any of the new set of ancestors is the label
@@ -168,6 +153,9 @@ $.widget( "ui.checkboxradio", {
 
 					// Still not found look inside the ancestors for the label
 					this.label = ancestor.find( labelSelector );
+					if ( this.label.length === 0 ) {
+						$.error( "No label found for checkboxradio widget" );
+					}
 				}
 			}
 		}
@@ -176,6 +164,7 @@ $.widget( "ui.checkboxradio", {
 	_enhance: function() {
 		var checked = this.element.is( ":checked" );
 
+		this._setOption( "disabled", this.options.disabled );
 		this._updateIcon( checked );
 		this.element.addClass( "ui-helper-hidden-accessible " +
 			this._classes( "ui-checkboxradio" ) );

@@ -141,8 +141,12 @@ test( "Checkbox label selector works for ids with \":\"", function() {
 	ok( group.find( "label" ).is( ".ui-button" ), "Found an id with a :" );
 });
 
-test( "Calling checkboxradio on an unsupported element throws and error", function() {
+test( "Calling checkboxradio on an unsupported element throws an error", function() {
 	expect( 1 );
 	throws( $( "<div>" ).checkboxradio, "Error thrown" );
+});
+test( "Calling checkboxradio oan input with no label throws an error", function() {
+	expect( 1 );
+	throws( $( "<input type='checkbox'>" ).checkboxradio, "Error thrown" );
 });
 })(jQuery);
