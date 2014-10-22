@@ -58,15 +58,17 @@ test( "items: custom selector", function() {
 			"button": ".button"
 		}
 	});
-
 	strictEqual( element.children( ".ui-button" ).length, 5,
 		"Correct child widgets are called when custom selector used" );
-	expect( 2 );
+	expect( 1 );
 });
 
 $.widget( "ui.test", {
 	_create: function (){
-		this.element.addClass( "ui-test" );
+		this.element.addClass( "ui-test ui-button" );
+	},
+	refresh: function() {
+		return;
 	}
 });
 test( "items: custom widget", function() {
@@ -76,8 +78,10 @@ test( "items: custom widget", function() {
 		}
 	});
 
-	strictEqual( element.children( ".ui-button" ).length, 5,
+	strictEqual( element.children( ".ui-button" ).length, 7,
 		"Correct child widgets are called when custom selector used" );
+	strictEqual( element.children( ".ui-test" ).length, 1,
+		"Custom widget called" );
 	expect( 2 );
 });
 

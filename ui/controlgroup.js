@@ -47,6 +47,7 @@ $.widget( "ui.controlgroup", {
 		this._enhance();
 	},
 
+	// To support enhanced option in jQuery mobile we isolate dom manipulation here
 	_enhance: function() {
 		this.element.attr( "role", "toolbar" );
 		this.refresh();
