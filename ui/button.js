@@ -140,7 +140,7 @@ $.widget( "ui.button", {
 
 	_destroy: function() {
 		this.element
-			.removeClass( this._classes( "ui-button ui-button-icon-only" ) + " " + baseClasses +
+			.removeClass( this._classes( "ui-button ui-button-icon-only" ) + " ui-widget" +
 				" ui-state-active " + typeClasses )
 			.removeAttr( "role" );
 
