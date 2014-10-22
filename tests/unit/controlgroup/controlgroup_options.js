@@ -52,6 +52,35 @@ test( "items", function() {
 	expect( 2 );
 });
 
+test( "items: custom selector", function() {
+	var element = $( ".controlgroup-custom-selector" ).controlgroup({
+		items: {
+			"button": ".button"
+		}
+	});
+
+	strictEqual( element.children( ".ui-button" ).length, 5,
+		"Correct child widgets are called when custom selector used" );
+	expect( 2 );
+});
+
+$.widget( "ui.test", {
+	_create: function (){
+		this.element.addClass( "ui-test" );
+	}
+});
+test( "items: custom widget", function() {
+	var element = $( ".controlgroup-custom-widget" ).controlgroup({
+		items: {
+			"test": ".test"
+		}
+	});
+
+	strictEqual( element.children( ".ui-button" ).length, 5,
+		"Correct child widgets are called when custom selector used" );
+	expect( 2 );
+});
+
 test( "excludeInvisible", function() {
 	var element = $( ".controlgroup" ).controlgroup(),
 		buttons = element.children( ".ui-button" );
