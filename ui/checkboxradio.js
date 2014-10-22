@@ -128,7 +128,7 @@ $.widget( "ui.checkboxradio", {
 			parent = this.element.closest( "label" );
 
 		// Check control.labels first
-		if ( this.element[ 0 ].labels !== undefined && this.element[ 0 ].labels.length > 0 ){
+		if ( this.element[ 0 ].labels !== undefined && this.element[ 0 ].labels.length > 0 ) {
 			this.label = $( this.element[ 0 ].labels[ 0 ] );
 		} else if ( parent.length > 0 ) {
 			this.label = parent;
@@ -238,7 +238,7 @@ $.widget( "ui.checkboxradio", {
 
 		if ( this.options.icon ) {
 			this.label.addClass( "ui-icon-beginning" );
-			if ( !this.icon ){
+			if ( !this.icon ) {
 				this.icon = $( "<span>" );
 			}
 
