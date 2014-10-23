@@ -3,16 +3,16 @@ TestHelpers.commonWidgetTests( "checkboxradio", {
 	defaults: {
 		disabled: null,
 		label: null,
-		icon: false,
+		icon: true,
 		classes: {
 			"ui-checkboxradio": null,
-			"ui-checkbox": null,
-			"ui-radio": null,
-			"ui-checkbox-label": "ui-corner-all",
-			"ui-radio-label": "ui-corner-all",
+			"ui-checkboxradio-checkbox": null,
+			"ui-checkboxradio-radio": null,
+			"ui-checkboxradio-checkbox-label": "ui-corner-all",
+			"ui-checkboxradio-radio-label": "ui-corner-all",
 			"ui-checkboxradio-icon": "ui-corner-all",
-			"ui-radio-checked": null,
-			"ui-checkbox-checked": null
+			"ui-checkboxradio-radio-checked": null,
+			"ui-checkboxradio-checkbox-checked": null
 		},
 
 		// Callbacks
