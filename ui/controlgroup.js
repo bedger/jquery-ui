@@ -102,6 +102,13 @@ $.widget( "ui.controlgroup", {
 				};
 	},
 
+	_elementsFromClassKey: function( classKey ) {
+		if ( this.options.direction !== classKey.split( "-" )[ 2 ] ) {
+			return $();
+		}
+		return this._superApply( arguments );
+	},
+
 	_setOption: function( key, value ) {
 		var original = this.options[ key ];
 
