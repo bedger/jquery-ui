@@ -206,7 +206,6 @@ $.widget( "ui.button", {
 
 		this._updateTooltip();
 	}
-
 });
 
 // DEPRECATED
@@ -226,7 +225,7 @@ if ( $.uiBackCompat ) {
 			if ( this.options.showLabel && !this.options.text ) {
 				this.options.showLabel = this.options.text;
 			}
-			if( !this.options.icon && ( this.options.icons.primary ||
+			if ( !this.options.icon && ( this.options.icons.primary ||
 					this.options.icons.secondary ) ) {
 				if ( this.options.icons.primary ) {
 					this.options.icon = this.options.icons.primary;
@@ -242,7 +241,7 @@ if ( $.uiBackCompat ) {
 			if ( key === "text" ) {
 				this._setOption( "showLabel", value );
 			}
-			if( key === "icons" ) {
+			if ( key === "icons" ) {
 				this._setOption( "icon", value );
 				if ( value.primary ) {
 					this._setOption( "icon", value );
@@ -252,27 +251,37 @@ if ( $.uiBackCompat ) {
 					this._setOption( "iconPosition", "end" );
 				}
 			}
-
+			this._superApply( arguments );
 		}
 	});
 	$.fn.button = (function( orig ) {
-		if( this[ 0 ].tagName === "input" && ( this.attr( "type") === "checkbox" ||
-				this.attr( "type" ) === "radio" ) ) {
-			if ( $.ui.checkboxradio ) {
-				if ( arguments.length === 0 ) {
-					return this.checkboxradio({
-						"icon": false
-					});
+		return function() {
+			if ( this[ 0 ].tagName === "input" && ( this.attr( "type") === "checkbox" ||
+					this.attr( "type" ) === "radio" ) ) {
+				if ( $.ui.checkboxradio ) {
+					if ( arguments.length === 0 ) {
+						return this.checkboxradio({
+							"icon": false
+						});
+					} else {
+						return this.checkboxradio.apply( arguments );
+					}
 				} else {
-					return this.checkboxradio.apply( arguments );
+					$.error( "Checkboxradio widget missing" );
 				}
 			} else {
-				$.error( "Checkboxradio widget missing" );
+				return orig.apply( this, arguments );
 			}
-		} else {
-			return orig.apply( arguments );
-		}
+		};
 	})( $.fn.button );
+	$.fn.buttonset = function( method, key, value ) {
+		if ( method === "option" && key === "items" ) {
+			value = {
+				"button": value
+			};
+		}
+		this.controlgroup.call( method, key, value );
+	};
 }
 
 return $.ui.button;
