@@ -56,7 +56,7 @@ $.widget( "ui.checkboxradio", {
 	options: {
 		disabled: null,
 		label: null,
-		icon: false,
+		icon: true,
 		classes: {
 			"ui-checkboxradio": null,
 			"ui-checkbox": null,
@@ -71,11 +71,15 @@ $.widget( "ui.checkboxradio", {
 
 	_getCreateOptions: function() {
 		var disabled,
+			that = this,
 			options = {};
 
 		this._readLabel();
 
-		this.originalLabel = this.label.html();
+		this.originalLabel = "";
+		this.label.contents().not( this.element ).each( function() {
+			that.originalLabel += ( this.nodeType === 3 ) ? $( this ).text() : this.outerHTML;
+		});
 
 		disabled = this.element.prop( "disabled" );
 		if ( disabled != null ) {
@@ -127,11 +131,14 @@ $.widget( "ui.checkboxradio", {
 		var ancestor, labelSelector,
 			parent = this.element.closest( "label" );
 
+		this.parentLabel = false;
+
 		// Check control.labels first
 		if ( this.element[ 0 ].labels !== undefined && this.element[ 0 ].labels.length > 0 ) {
 			this.label = $( this.element[ 0 ].labels[ 0 ] );
 		} else if ( parent.length > 0 ) {
 			this.label = parent;
+			this.parentLabel = true;
 		} else {
 
 			// We don't search against the document in case the element
@@ -259,9 +266,12 @@ $.widget( "ui.checkboxradio", {
 		var checked = this.element.is( ":checked" ),
 			isDisabled = this.element.is( ":disabled" );
 		this._updateIcon( checked );
+		console.log( this.options.label );
 		this.label.toggleClass( "ui-state-active " + this._classes( "ui-" + this.type + "-checked" ), checked );
 		if ( this.options.label !== null ) {
-			this.label.html( !!this.icon ? this.icon : "" ).append( this.options.label );
+			this.label.contents().not( this.element.add( this.icon ) ).remove();
+			this.label.append( this.options.label );
+
 		}
 
 		if ( isDisabled !== this.options.disabled ) {
