@@ -153,6 +153,23 @@ $.widget( "ui.button", {
 		}
 	},
 
+	_elementsFromClassKey: function( classKey ) {
+		switch ( classKey ) {
+			case "ui-button-icon-only":
+				if ( this.options.showLabel ) {
+					return $();
+				}
+				break;
+			case "ui-button-icon":
+				if ( this.icon ) {
+					return this.icon;
+				}
+				return $();
+			default:
+				return this._superApply( arguments );
+		}
+	},
+
 	_setOption: function( key, value ) {
 		if ( key === "icon" ) {
 			if ( value !== null ) {
