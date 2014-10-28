@@ -15,7 +15,7 @@ test("Checkbox", function() {
 	input.checkboxradio();
 	strictEqual( input.attr( "class" ), "ui-helper-hidden-accessible ui-checkboxradio" );
 	strictEqual( label.attr( "class" ), "ui-icon-beginning ui-button ui-widget" +
-		" ui-checkboxradio-checkbox-label ui-corner-all" );
+		" ui-checkboxradio-label ui-corner-all" );
 });
 
 test("Radios", function() {
