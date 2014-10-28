@@ -70,7 +70,7 @@ $.widget( "ui.checkboxradio", {
 	_getCreateOptions: function() {
 		var disabled,
 			that = this,
-			options = {};
+			options = this._super() || {};
 
 		this._readLabel();
 
